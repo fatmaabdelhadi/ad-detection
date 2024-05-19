@@ -2,10 +2,12 @@ import numpy as np
 import pandas as pd
 from sklearn import tree
 import pydotplus
-from IPython.display import Image
+from IPython.display import Image, display
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.svm import LinearSVC
+import matplotlib.pyplot as plt
+
 
 # Dataset
 data = pd.read_csv("ad.csv", low_memory=False)
@@ -83,3 +85,32 @@ Y_pred_tree_overfit = clf_tree_overfit.predict(X_test)
 print("Overfitted Decision Tree Classifier Report")
 print(classification_report(Y_test, Y_pred_tree_overfit))
 print("Accuracy:", accuracy_score(Y_test, Y_pred_tree_overfit))
+
+# Model fitting and evaluation
+maxdepths = [2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30, 35, 40, 45, 50]
+
+trainAcc = np.zeros(len(maxdepths))
+testAcc = np.zeros(len(maxdepths))
+
+index = 0
+for depth in maxdepths:
+    clf = tree.DecisionTreeClassifier(max_depth=depth)
+    clf = clf.fit(X_train, Y_train)
+    Y_predTrain = clf.predict(X_train)
+    Y_predTest = clf.predict(X_test)
+    trainAcc[index] = accuracy_score(Y_train, Y_predTrain)
+    testAcc[index] = accuracy_score(Y_test, Y_predTest)
+    index += 1
+
+# Plot of training and testing accuracies
+plt.figure(figsize=(10, 6))
+plt.plot(maxdepths, trainAcc, 'ro-', maxdepths, testAcc, 'bv--')
+plt.legend(['Training Accuracy', 'Test Accuracy'])
+plt.xlabel('Max depth')
+plt.ylabel('Accuracy')
+plt.title('Training and Test Accuracy vs. Max Depth')
+plt.grid(True)
+
+# Save plot as an image
+plt.savefig("accuracy_plot.png")
+plt.show()
