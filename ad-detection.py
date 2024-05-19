@@ -132,7 +132,6 @@ plt.title('Confusion Matrix for Decision Tree Classifier', fontsize=17)
 plt.savefig("confusion_matrix_decision_tree.png")
 plt.show()
 
-
 # Confusion Matrix for SVM
 conf = confusion_matrix(Y_test, Y_pred_svm)
 
