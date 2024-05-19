@@ -4,9 +4,10 @@ from sklearn import tree
 import pydotplus
 from IPython.display import Image
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, classification_report
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.svm import LinearSVC
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 # Dataset
@@ -113,4 +114,36 @@ plt.grid(True)
 
 # Save plot as an image
 plt.savefig("accuracy_plot.png")
+plt.show()
+
+# Confusion Matrix
+conf = confusion_matrix(Y_test, Y_pred_tree)
+
+# Plot the confusion matrix
+plt.figure(figsize=(8, 6))
+sns.heatmap(conf, annot=True,
+             fmt='g', cmap='Blues',
+             xticklabels=['Non-Ad', 'Ad'],
+             yticklabels=['Non-Ad', 'Ad'])
+plt.ylabel('Actual', fontsize=13)
+plt.xlabel('Predicted', fontsize=13)
+plt.title('Confusion Matrix for Decision Tree Classifier', fontsize=17)
+# Save the confusion matrix as an image
+plt.savefig("confusion_matrix_decision_tree.png")
+plt.show()
+
+
+# Confusion Matrix for SVM
+conf = confusion_matrix(Y_test, Y_pred_svm)
+
+# Plot the confusion matrix
+plt.figure(figsize=(8, 6))
+sns.heatmap(conf, annot=True,
+             fmt='g', cmap='Blues',
+             xticklabels=['Non-Ad', 'Ad'],
+             yticklabels=['Non-Ad', 'Ad'])
+plt.ylabel('Actual', fontsize=13)
+plt.xlabel('Predicted', fontsize=13)
+plt.title('Confusion Matrix for SVM Classifier', fontsize=17)
+plt.savefig("confusion_matrix_svm.png")
 plt.show()
