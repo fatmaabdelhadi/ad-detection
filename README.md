@@ -15,6 +15,35 @@ The project involved:
 
 ---
 
+## ⚙️ Setup
+
+1. Clone the repository
+
+`git clone https://github.com/fatmaabdelhadi/ad-detection.git`
+
+`cd ad-detection`
+
+2. Install required Python packages
+
+`pip install numpy pandas scikit-learn matplotlib seaborn pydotplus`
+
+3. Install **Graphviz** (required for Decision Tree visualization)
+
+Download and install Graphviz from:  
+https://graphviz.org/download/
+
+After installation, make sure Graphviz is added to your **system PATH**.
+
+4. Place the dataset
+
+Ensure the file **ad.csv** is located in the project root directory.
+
+5. Run the project
+
+`python ad_detection.py`
+
+---
+
 ## 🤖 Models Used
 - 🌳 **Decision Tree Classifier**
 - ⚡ **Support Vector Machine (SVM)**
